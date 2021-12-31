@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class scanner</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>Class scanner</h1>
+            <div id="scan-indicator" class=""><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div class="inputs">
+            <label for="target-date">Date </label>
+            <input type="date" id="target-date" name="target_date" placeholder="27 september">
+            <label for="target-class">Class </label>
+            <input type="text" id="target-class" name="target_class" placeholder="Crossfit" value="Crossfit">
+            <div>
+            <label for="auto-subscribe-time">Auto register at (starttime): </label>
+            <input type="time" id="auto-subscribe-time" name="auto_subscribe_time" max="23:00">
+            <button onclick="javascript:document.getElementById('auto-subscribe-time').value=''">X</button>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="start-btn" class="styled start-btn">Start scanning</button>
+            <button id="stop-btn" class="styled stop-btn">Stop scanning</button>
+            <button id="sync-scan-btn" class="styled start-btn">Synchronous scan</button>
+        </div>
+        <div class="output-wrapper" id="output-box">
+        </div>
+    </div>
+    <script src="{{ url_for('static', path='/index.js') }}"></script>
+  </body>
+</html>
