@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 import pendulum
 from datetime import date
 import argparse
@@ -10,12 +11,16 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from dotenv import load_dotenv
 
 from pydantic import BaseModel, validator
 
+load_dotenv()
+
 URL = "https://vondelgym.nl/lesrooster-vondelgym-oost"
-COOKIE = "" # TODO: --> env
+COOKIE = os.environ["COOKIE"]
 TZ = "Europe/Amsterdam"
+SESSION_ID=os.environ["SESSION_ID"]
 
 TRANSLATION = {
     "january": "januari",

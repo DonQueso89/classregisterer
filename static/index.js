@@ -1,7 +1,10 @@
 window.APPGLOBALS = {};
 
-const SCAN_INTERVAL = 60000; // ms
 const API_URL = "http://localhost:8888";
+
+function getScanInterval() {
+  return parseInt(document.getElementById("scan-interval").value) * 1000 || 60000
+}
 
 async function attemptRegistration(registrationId) {
   await fetch(`${API_URL}/register/${registrationId}`, {
@@ -10,7 +13,7 @@ async function attemptRegistration(registrationId) {
   });
 }
 
-async function poll(synchronous=false) {
+async function poll(synchronous = false) {
   const targetDate = document.getElementById("target-date").value;
   const targetClass = document.getElementById("target-class").value;
   const autoSubscribeTime = document.getElementById(
@@ -54,7 +57,7 @@ async function poll(synchronous=false) {
             await attemptRegistration(registrationId);
             stopScanning();
             new Notification(
-                `Attempted registration at ${startTime}. Scan stopped.`
+              `Attempted registration at ${startTime}. Scan stopped.`
             );
           }
         }
@@ -64,7 +67,7 @@ async function poll(synchronous=false) {
     outputElem.appendChild(content);
 
     if (window.APPGLOBALS.isScanning) {
-      window.APPGLOBALS.curScanID = setTimeout(poll, SCAN_INTERVAL);
+      window.APPGLOBALS.curScanID = setTimeout(poll, getScanInterval());
     }
   } else {
     stopScanning();
@@ -86,7 +89,7 @@ function startScanning() {
   if (!window.APPGLOBALS.isScanning) {
     window.APPGLOBALS.isScanning = true;
     document.getElementById("scan-indicator").classList.add("lds-ellipsis");
-    window.APPGLOBALS.curScanID = setTimeout(poll, SCAN_INTERVAL);
+    window.APPGLOBALS.curScanID = setTimeout(poll, getScanInterval());
   }
 }
 
