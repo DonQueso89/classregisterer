@@ -145,22 +145,21 @@ def root(request: Request):
 
 @app.post("/login/", response_class=RedirectResponse)
 def login(email: str, password: str):
-    # TODO: login to vondelgym and get Cookie, or just get the Cookie if we turn out to have a session
+    # TODO: login to vondelgym and get Cookie
     return RedirectResponse("/")
 
 
-@app.post("/register/{reg_id}", response_class=RedirectResponse)
+@app.post("/register/{reg_id}", status_code=201)
 def register(reg_id: str):
-    session_id = "" # TODO: --> env
     response = requests.post(
         f"https://vondelgym.nl/cs_reservations/reserve/{reg_id}?conf_id=1138&mode=",
         headers={
-            "Cookie": f"_mysportpages_session_id_={session_id}; add_to_home_screen=true",
+            "Cookie": COOKIE,
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
     )
     response.raise_for_status()
-    return RedirectResponse("/")
+    return
 
 
 @app.post("/search/")
